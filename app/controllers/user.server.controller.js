@@ -1,4 +1,6 @@
 var User = require('mongoose').model('User');
+var Survey = require('mongoose').model('Survey');
+var _ = require('underscore');
 
 
 module.exports = {
@@ -19,9 +21,8 @@ module.exports = {
 
       });
     });
-
-
   },
+
   all: function(req, res, next) {
     res.render('users/index', {
       title: 'All Users'

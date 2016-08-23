@@ -1,74 +1,108 @@
-<h4> Display user Profile of  </h4>
-
-
 
 
 <div class="row">
 
-    <div class="col-md-4">.col-md-4
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">User Profile</h3>
-            </div>
-            <div class="panel-body">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">User Profile of <%=user.first_name%> <%=user.last_name%> </h3>
+      </div>
 
-              <ul>
-                <li>email: <%=user.email%></li>
-                <li><% if (user.gender == 2) { %>
-                          Female
-                        <% } else { %>
-                          Male
-                        <% } %>
-                </li>
-                <li>First Name: <%=user.first_name%></li>
-                <li>Last Name: <%=user.last_name%></li>
-                <li>Age: <%=user.age%></li>
-                <li>Ethnicity: <%=user.ethnicity%></li>
-                <li>Household Income: $ <%=user.householdIncome%></li>
-                <li>Ethnicity: <%=user.ethnicity%></li>
+      <div class="panel-body">
 
-              </ul>
+        <ul>
+          <li>Name:   <%=user.first_name%> <%=user.last_name%> </li>
+          <li>email:  <%=user.email%> </li>
+          <li>Gender: <% if (user.gender == 2) { %>
+                            Female
+                      <% } else { %>
+                            Male
+                      <% } %>
+          </li>
 
-              <% if (user.gender == 2) { %>
-             Female
-             <% } %>
+          <li>Age Group:
+                      <% if (user.age == 1) { %>
+                            16 - 35 years old
+                      <% } else if (user.age == 2) { %>
+                            36 - 50 years old
+                      <% } else if (user.age == 3) { %>
+                            above 50 years old
+                      <% } %>
+          </li>
 
+          <li>Ethnicity:
+                      <% if (user.ethnicity == 1) { %>
+                            Chinese
+                      <% } else if (user.ethnicity == 2) { %>
+                            Malay
+                      <% } else if (user.ethnicity == 3) { %>
+                            Indian
+                      <% } else if (user.ethnicity == 4) { %>
+                            Other
+                      <% } %>
+          </li>
 
+          <li>Household Income:
+                      <% if (user.householdIncome == 1) { %>
+                            Below SGD 3,000
+                      <% } else if (user.householdIncome == 2) { %>
+                            SGD 3,000 - 5,999
+                      <% } else if (user.householdIncome == 3) { %>
+                            SGD 6,000 - 14,999
+                      <% } else if (user.householdIncome == 4) { %>
+                            SGD 15,000 or above
+                      <% } %>
+          </li>
 
+          <li>Political Party:
+                      <% if (user.politicalParty == 1) { %>
+                            People Action Party (PAP)
+                      <% } else { %>
+                            Opposition
+                      <% } %>
+          </li>
 
-<br>
-                <%=user%>
+          <li>Time On Line:
+                      <% if (user.timeOnline == 1) { %>
+                            less than 2 hours
+                      <% } else if (user.timeOnline == 2) { %>
+                            more than 2 hours, less than 5 hours
+                      <% } else if (user.timeOnline == 3) { %>
+                            more than 6 hours
+                      <% } %>
+          </li>
 
+        </ul>
+                <!-- <%=user%> -->
 
+    </div>
+  </div>
+</div>
 
-            </div>
-        </div>
+<div class="col-md-8">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">NPS Data</h3>
     </div>
 
-    <div class="col-md-8">.col-md-8
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Survey Participated</h3>
-            </div>
-            <div class="panel-body">
-                Panel content
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Survey Participated</h3>
-            </div>
-            <div class="panel-body">
-                Panel content
-            </div>
-        </div>
+    <div class="panel-body">
+      Display here: <br>
+      
     </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Survey Participated</h3>
+    </div>
+    <div class="panel-body">
+      Panel content
+    </div>
+  </div>
+</div>
 
 
-
-<div> Dummy Div</div>
-
-
+    <!--
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Panel title</h3>
@@ -90,4 +124,4 @@
             <li role="separator" class="divider"></li>
             <li><a href="#">Separated link</a></li>
         </ul>
-    </div>
+    </div> -->

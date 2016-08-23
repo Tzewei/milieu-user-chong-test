@@ -112,13 +112,20 @@ module.exports = {
       "NPS_Reason3": parseInt(brandIndex.npsReason3/brandIndex.total * 100) + "%",
      });
     }
+    // console.log(apiData);
     // console.log(user[0]);
+    // module.exports.apiData = apiData;
     res.json({
       // npsReason,
       // femaleCount,
       apiData,
       // mergedRawData,
     });
+
+
+
+
+
 
     // Survey.findOne({})
     // .populate('user')

@@ -2,6 +2,45 @@ var User = require('mongoose').model('User');
 var Survey = require('mongoose').model('Survey');
 var _ = require('underscore');
 
+var totalCount, promotersCount, detractorsCount;
+var mergedRawData = [];
+var resultData = [];
+
+
+Survey.aggregate([
+  { $group: {
+    _id: "$brandName",
+    total: { $sum: 1 }
+  }},
+  { $sort: { '_id': 1 }}
+], function(err, result){
+  totalCount = result;
+});
+
+Survey.aggregate([
+  { $match: { npsScore: { $gte: 9 }}},
+  { $group: {
+    _id: "$brandName",
+    promoters: { $sum: 1 }
+  }},
+  { $sort: { '_id': 1 }}
+], function(err, result){
+  promotersCount = result;
+});
+
+Survey.aggregate([
+  { $match: { npsScore: { $lte: 6 }}},
+  { $group: {
+    _id: "$brandName",
+    detractors: { $sum: 1 }
+  }},
+  { $sort: { '_id': 1 }}
+], function(err, result){
+    detractorsCount = result;
+});
+
+
+
 
 module.exports = {
   login: function(req, res, next) {
@@ -15,12 +54,55 @@ module.exports = {
       if(err) console.log(err);
       console.log(results);
 
+      for (var i = 0; i < totalCount.length; i++) {
+        mergedRawData.push(_.extend({}, totalCount[i], promotersCount[i], detractorsCount[i] ));
+      }
+
+      for(var j = 0; j < totalCount.length; j++)  {
+        var brandIndex = mergedRawData[j];
+
+        resultData.push({"Brand": brandIndex._id,
+        "NPS_Score": parseInt(brandIndex.promoters/brandIndex.total * 100) - parseInt(brandIndex.detractors/brandIndex.total * 100),
+        "totalSurvey": brandIndex.total
+       });       
+      }
+      console.log(resultData);
+
       res.render('users/dashboard', {
         title: 'Dashboard',
-        user:results
+        user:results,
+        displayData:resultData
 
       });
     });
+
+// request.get('localhost:9000/api/surveys/index', function(err, data){
+//
+// })
+// console.log("apiData here: " + surveyController.index(req, req, next));
+      //
+      // for (var i = 0; i < totalCount.length; i++) {
+      //   mergedRawData.push(_.extend({}, totalCount[i], promotersCount[i], detractorsCount[i] ));
+      // }
+      //
+      // for(var j = 0; j < totalCount.length; j++)  {
+      //   var brandIndex = mergedRawData[j];
+      //
+      //   resultData.push({"Brand": brandIndex._id,
+      //   "NPS_Score": parseInt(brandIndex.promoters/brandIndex.total * 100) - parseInt(brandIndex.detractors/brandIndex.total * 100),
+      //   "totalSurvey": brandIndex.total
+      //  });
+      // }
+console.log(resultData);
+
+
+
+      //  res.render('users/dashboard',{
+      //    title: 'Dashboard Survey',
+      //    displayData:resultData
+      //  });
+
+
   },
 
   all: function(req, res, next) {

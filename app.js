@@ -5,8 +5,8 @@ var mongoose = require('./config/mongoose');
 mongoose.Promise = global.Promise;
 
 // calling both functions, which comes from the above files.
-var app = express();
 var db = mongoose();
+var app = express();
 
 // set port to 9000.
 app.set('port', (process.env.PORT || 9000));
